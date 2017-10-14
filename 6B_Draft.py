@@ -20,18 +20,18 @@ address2 = 'http://py4e-data.dr-chuck.net/known_by_Ivan.html'
 count = int(input("Enter count: "))
 position = int(input("Enter position: "))
 
-lists = []
-
 for i in range(count):
 	html = urllib.request.urlopen(address2, context=ctx).read()
 	soup = BeautifulSoup(html, 'html.parser')
 	tags = soup('a')
 	number = 0
 	for tag in tags:
-		lists.append(tag)
-	address2 = lists[position-1].get('href', None)
-	del lists[:]
-print(address2)
+		number += 1
+		if number == position:
+			address2 = tag.get('href', None)
+			if i == position:
+				print(tag.contents[0])
+			break
 
 
 
